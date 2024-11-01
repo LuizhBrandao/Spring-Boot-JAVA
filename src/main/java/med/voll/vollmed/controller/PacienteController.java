@@ -2,10 +2,7 @@ package med.voll.vollmed.controller;
 
 import jakarta.validation.Valid;
 import med.voll.vollmed.endereco.Endereco;
-import med.voll.vollmed.paciente.DadosCadastroPaciente;
-import med.voll.vollmed.paciente.DadosListagemPaciente;
-import med.voll.vollmed.paciente.Paciente;
-import med.voll.vollmed.paciente.PacienteRepository;
+import med.voll.vollmed.paciente.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +29,13 @@ public class PacienteController {
     @GetMapping
     public Page<DadosListagemPaciente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemPaciente::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados) {
+        var paciente = repository.getReferenceById(dados.id());
+        paciente.atualizarInformacoes(dados);
     }
 
 }
