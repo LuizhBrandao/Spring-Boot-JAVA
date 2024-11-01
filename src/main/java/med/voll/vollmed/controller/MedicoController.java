@@ -1,10 +1,7 @@
 package med.voll.vollmed.controller;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.vollmed.medico.DadosCadastroMedico;
-import med.voll.vollmed.medico.DadosListagemMedico;
-import med.voll.vollmed.medico.Medico;
-import med.voll.vollmed.medico.MedicoRepository;
+import med.voll.vollmed.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,8 +28,13 @@ public class MedicoController {
         return repository.findAll(paginacao).map(DadosListagemMedico::new);
     }
 
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
+        var medico = repository.getReferenceById(dados.id());
+        medico.atualizarInformacoes(dados);
 
-
+    }
 
 }
 //public void cadastrar(@RequestBody med.voll.vollmed.medico.DadosCadastroMedico dados) {
