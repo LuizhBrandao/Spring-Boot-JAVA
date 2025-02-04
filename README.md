@@ -1,4 +1,4 @@
-# Spring Boot JAVA
+# VollMed SpringBoot Java
 
 Este repositório contém um projeto desenvolvido com **Spring Boot**, utilizando **Java** para a criação de uma aplicação backend robusta e escalável.
 
